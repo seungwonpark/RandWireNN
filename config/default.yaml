@@ -1,0 +1,10 @@
+model:
+  channel: 78 # 'small regime'
+  classes: 1000
+  graph0: ''
+  graph1: ''
+  graph2: ''
+---
+log:
+  chkpt_dir: 'chkpt'
+  log_dir: 'logs'

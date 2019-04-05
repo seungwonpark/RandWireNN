@@ -6,7 +6,7 @@ config/*
 cifar-100-python/
 
 # generated graph text files
-model/graphs/generated
+# model/graphs/generated # specified in sub gitignore
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
