@@ -41,6 +41,7 @@ if __name__ == '__main__':
 
     os.makedirs('generated', exist_ok=True)
     with open(os.path.join('generated', args.out_txt), 'w') as f:
+        f.write(str(n) + '\n')
         f.write(str(len(edges)) + '\n')
         for edge in edges:
             f.write('%d %d\n' % (edge[0], edge[1]))
