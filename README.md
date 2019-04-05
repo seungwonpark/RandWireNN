@@ -1,6 +1,8 @@
 # RandWireNN
 Unofficial PyTorch Implementation of:
-[Exploring Randomly Wired Neural Networks for Image Recognition](https://arxiv.org/abs/1904.01569). (WORK IN PROGRESS)
+[Exploring Randomly Wired Neural Networks for Image Recognition](https://arxiv.org/abs/1904.01569).
+
+(WORK IN PROGRESS, currently preparing ImageNet dataset)
 
 ![](./assets/teaser.png)
 
