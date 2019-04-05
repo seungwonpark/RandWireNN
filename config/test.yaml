@@ -1,0 +1,17 @@
+train:
+  optimizer: 'adam'
+  adam: 0.001
+  adabound:
+    initial: 0.001
+    final: 0.05
+---
+model:
+  channel: 78 # 'small regime'
+  classes: 1000
+  graph0: 'ws-4-075-3.txt'
+  graph1: 'ws-4-075-4.txt'
+  graph2: 'ws-4-075-5.txt'
+---
+log:
+  chkpt_dir: 'chkpt'
+  log_dir: 'logs'

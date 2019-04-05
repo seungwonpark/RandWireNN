@@ -1,4 +1,7 @@
 # Ignore everything in this directory
 *
-# Except this file
+# Except these files
 !.gitignore
+!ws-4-075-3.txt
+!ws-4-075-4.txt
+!ws-4-075-5.txt
