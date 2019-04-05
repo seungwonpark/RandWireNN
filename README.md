@@ -43,7 +43,7 @@ I plan to use Adam optimizer, instead of [Distributed SGD](https://arxiv.org/abs
 
 ## Author
 
-[Seungwon Park](http://swpark.me) at MINDsLab (yyyyy@snu.ac.kr, swpark@mindslab.ai)
+Seungwon Park / [@seungwonpark](http://swpark.me)
 
 ## License
 
