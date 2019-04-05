@@ -1,5 +1,3 @@
-# adapted from https://github.com/tstandley/Xception-PyTorch/blob/master/xception.py
-
 import torch
 import torch.nn as nn
 

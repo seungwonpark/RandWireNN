@@ -1,3 +1,10 @@
+train:
+  optimizer: 'adam'
+  adam: 0.001
+  adabound:
+    initial: 0.001
+    final: 0.05
+---
 model:
   channel: 78 # 'small regime'
   classes: 1000

@@ -15,7 +15,7 @@ class RandWire(nn.Module):
 
         # didn't used nn.Sequential for debugging purpose
         # self.conv1 = SeparableConv2d(1, self.chn//2, kernel_size=3, padding=1, stride=2)
-        self.conv1 = nn.Conv2d(1, self.chn//2, kernel_size=3, padding=1, stride=2)
+        self.conv1 = nn.Conv2d(3, self.chn//2, kernel_size=3, padding=1, stride=2)
         self.bn1 = nn.BatchNorm2d(self.chn//2)
         # self.conv2 = SeparableConv2d(self.chn//2, self.chn, kernel_size=3, padding=1, stride=2)
         self.conv2 = nn.Conv2d(self.chn//2, self.chn, kernel_size=3, padding=1, stride=2)
