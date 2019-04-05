@@ -6,7 +6,6 @@ from utils.hparams import HParam
 from model.model import RandWire
 
 
-
 def read_graph(txtfile):
     txtpath = os.path.join('model', 'graphs', 'generated', txtfile)
     with open(txtpath, 'r') as f:
@@ -23,15 +22,19 @@ def read_graph(txtfile):
         return temp
 
 if __name__ == '__main__':
-    hp = HParam('config/config.yaml')
+    hp = HParam('config/test.yaml')
     graphs = [
         read_graph(hp.model.graph0),
         read_graph(hp.model.graph1),
         read_graph(hp.model.graph2),
     ]
 
+    print('Building Network...')
     model = RandWire(hp, graphs)
 
-    x = torch.randn(3, 1, 224, 224)
+    x = torch.randn(16, 3, 224, 224) # RGB-channel 224x224 image with batch_size=16
+    print('Input shape:')
+    print(x.shape)
     y = model(x)
-    print(y.shape)
+    print('Output shape:')
+    print(y.shape) # [3, 1000]

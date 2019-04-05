@@ -1,6 +1,7 @@
 # config
 config/*
 !config/default.yaml
+!config/test.yaml
 
 # data
 cifar-100-python/

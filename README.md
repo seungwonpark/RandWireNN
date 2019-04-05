@@ -1,11 +1,8 @@
 # RandWireNN
 Unofficial PyTorch Implementation of:
-[Exploring Randomly Wired Neural Networks for Image Recognition](https://arxiv.org/abs/1904.01569).
+[Exploring Randomly Wired Neural Networks for Image Recognition](https://arxiv.org/abs/1904.01569). (WORK IN PROGRESS)
 
-Things that are different from paper:
-- We used CIFAR-100 dataset instead of ImageNet.
-- We used Adam optimizer, instead [Distributed SGD](https://arxiv.org/abs/1706.02677).
-- 
+![](./assets/teaser.png)
 
 ## Generate random DAG
 
@@ -23,3 +20,35 @@ All outputs from commands shown above will produce txt file like:
 (number of edges)
 (lines, each line representing edges)
 ```
+
+## Test the model
+
+```
+python test.py
+```
+
+## TODO
+
+New things will be added here.
+
+- [x] implement ER, BA, WS graph generation
+- [x] implement the model
+- [x] write training/logging code with TensorboardX
+- [ ] download ImageNet dataset and implement `dataloader.py`
+- [ ] train the network
+- [ ] estimate appropriate batch size for specific GPU
+- [ ] write results here
+
+I plan to use Adam optimizer, instead of [Distributed SGD](https://arxiv.org/abs/1706.02677).
+
+## Author
+
+[Seungwon Park](http://swpark.me) at MINDsLab (yyyyy@snu.ac.kr, swpark@mindslab.ai)
+
+## License
+
+Apache License 2.0
+
+This repository contains codes adapted/copied from the followings:
+- [utils/adabound.py](./utils/adabound.py) from https://github.com/Luolc/AdaBound (Apache License 2.0)
+- [utils/hparams.py](./utils/hparams.py) from https://github.com/HarryVolek/PyTorch_Speaker_Verification (No License specified)
