@@ -1,4 +1,7 @@
 numpy
+pyyaml
+tensorboardX
+tensorflow
 torch
 torchvision
-tensorboardX
+tqdm

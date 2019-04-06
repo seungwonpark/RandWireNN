@@ -1,8 +1,8 @@
 data:
   train: ''
   val: ''
-  batch_size: 64
-  num_workers: 32
+  batch_size: 128 # for test, batch_size//8 will be used.
+  num_workers: 16
 ---
 train:
   optimizer: 'adam'

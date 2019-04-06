@@ -17,9 +17,9 @@ pip install -r requirements.txt
 
 ```bash
 cd model/graphs
-python er.py -p 0.2 -o er_02.txt # Erdos-Renyi
-python ba.py -m 7 -o ba_7.txt # Barbasi-Albert
-python ws.py -k 4 -p 0.75 ws_4_075.txt # Watts-Strogatz
+python er.py -p 0.2 -o er-02.txt # Erdos-Renyi
+python ba.py -m 7 -o ba-7.txt # Barbasi-Albert
+python ws.py -k 4 -p 0.75 ws-4-075.txt # Watts-Strogatz
 # number of nodes: -n option
 ```
 

@@ -2,6 +2,7 @@ import os
 import math
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import traceback
 
 from utils.adabound import AdaBound
@@ -12,6 +13,10 @@ from model.model import RandWire
 
 def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, graphs):
     model = RandWire(hp, graphs).cuda()
+    logger.info("Writing graph to tensorboardX...")
+    writer.write_graph(model, torch.randn(7, 3, 224, 224).cuda())
+    logger.info("Finished.")
+
     if hp.train.optimizer == 'adam':
         optimizer = torch.optim.Adam(model.parameters(),
                                      lr=hp.train.adam)
@@ -41,9 +46,9 @@ def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, gra
     try:
         model.train()
         while True:
-            for batch in trainset:
-                batch = batch.cuda()
-                data, target = batch
+            for data, target in trainset:
+                data, target = data.cuda(), target.cuda()
+                optimizer.zero_grad()
                 output = model(data)
                 loss = F.nll_loss(output, target)
                 loss.backward()
@@ -71,8 +76,8 @@ def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, gra
 
                 if step % hp.train.evaluation_interval == 0:
                     test_loss, accuracy = validate(model, valset, writer, step)
-                    logger.info("Evaluation saved at step %d | test_loss: %.5f | accuracy: %.2f(%)"
-                                    % (test_loss, accuracy))
+                    logger.info("Evaluation saved at step %d | test_loss: %.5f | accuracy: %.4f"
+                                    % (step, test_loss, accuracy))
     except Exception as e:
         logger.info("Exiting due to exception: %s" % e)
         traceback.print_exc()
