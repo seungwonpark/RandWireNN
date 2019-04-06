@@ -6,6 +6,15 @@ Unofficial PyTorch Implementation of:
 
 ![](./assets/teaser.png)
 
+## Result
+
+- Training took about (TODO) hours on AWS p3.2xlarge(NVIDIA V100).
+- I used:
+  - Adam optimizer, instead of [Distributed SGD](https://arxiv.org/abs/1706.02677).
+  - `batch_size = 128`
+
+(TODO: add results)
+
 ## Dependencies
 
 This code was tested on Python 3.6 with PyTorch 1.0.1. Other packages can be installed by:
@@ -32,7 +41,7 @@ All outputs from commands shown above will produce txt file like:
 
 ## Train RandWireNN
 
-1. Download ImageNet dataset. Train/val folder should contain list of 1,000 directories, each containing list of images for corresponding category.
+1. Download ImageNet dataset. Train/val folder should contain list of 1,000 directories, each containing list of images for corresponding category. For validation image files, this script can be useful: https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh
 1. Edit `config.yaml`
   ```bash
   cd config
@@ -57,10 +66,8 @@ New things will be added here.
 - [x] write training/logging code with TensorboardX
 - [x] download ImageNet dataset and implement `dataloader.py`
 - [ ] train the network
-- [ ] estimate appropriate batch size for specific GPU
+- [x] estimate appropriate batch size for specific GPU
 - [ ] write results here
-
-I plan to use Adam optimizer, instead of [Distributed SGD](https://arxiv.org/abs/1706.02677).
 
 ## Author
 
