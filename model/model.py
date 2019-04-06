@@ -29,7 +29,7 @@ class RandWire(nn.Module):
         self.fc = nn.Linear(1280, self.cls)
 
     def forward(self, y):
-        # y: [B, 1, 224, 224]
+        # y: [B, 3, 224, 224]
         # conv1
         y = self.conv1(y) # [B, chn//2, 112, 112]
         y = self.bn1(y) # [B, chn//2, 112, 112]
@@ -51,5 +51,5 @@ class RandWire(nn.Module):
         y = F.adaptive_avg_pool2d(y, (1, 1)) # [B, 1280, 1, 1]
         y = y.view(y.size(0), -1) # [B, 1280]
         y = self.fc(y) # [B, cls]
-        y = F.softmax(y, dim=1) # [B, cls]
+        y = F.log_softmax(y, dim=1) # [B, cls]
         return y

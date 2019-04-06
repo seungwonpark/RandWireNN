@@ -26,6 +26,9 @@ class DAGLayer(nn.Module):
                                 if self.in_degree[x] == 0]
         self.output_nodes = [x for x in range(num_nodes)
                                 if self.out_degree[x] == 0]
+        assert len(self.input_nodes) > 0, '%d' % len(self.input_nodes)
+        assert len(self.output_nodes) > 0, '%d' % len(self.output_nodes)
+
         for node in self.input_nodes:
             assert len(self.rev_adjlist[node]) == 0
             self.rev_adjlist[node].append(-1)
@@ -41,6 +44,7 @@ class DAGLayer(nn.Module):
         # y: [B, C, N, M]
         outputs = [None for _ in range(self.num_nodes)] + [y]
         queue = deque(self.input_nodes)
+        in_degree = self.in_degree.copy()
 
         while queue:
             now = queue.popleft()
@@ -48,8 +52,8 @@ class DAGLayer(nn.Module):
             feed = torch.stack(input_list, dim=-1)
             outputs[now] = self.nodes[now](feed)
             for v in self.adjlist[now]:
-                self.in_degree[v] -= 1
-                if self.in_degree[v] == 0:
+                in_degree[v] -= 1
+                if in_degree[v] == 0:
                     queue.append(v)
 
         out_list = [outputs[x] for x in self.output_nodes]

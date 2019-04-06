@@ -1,3 +1,6 @@
+logs/
+chkpt/
+
 # config
 config/*
 !config/default.yaml
