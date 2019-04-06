@@ -25,4 +25,4 @@ class NodeOp(nn.Module):
 #     x = torch.randn(7, 3, 224, 224, 5)
 #     node = NodeOp(5, 3, 4)
 #     y = node(x)
-#     print(y.shape) # [7, 224, 224]
+#     print(y.shape) # [7, 4, 224, 224]
