@@ -10,8 +10,8 @@ from utils.evaluation import validate
 from model.model import RandWire
 
 
-def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str):
-    model = RandWire(hp).cuda()
+def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, graphs):
+    model = RandWire(hp, graphs).cuda()
     if hp.train.optimizer == 'adam':
         optimizer = torch.optim.Adam(model.parameters(),
                                      lr=hp.train.adam)

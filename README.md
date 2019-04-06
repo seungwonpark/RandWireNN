@@ -6,6 +6,13 @@ Unofficial PyTorch Implementation of:
 
 ![](./assets/teaser.png)
 
+## Dependencies
+
+This code was tested on Python 3.6 with PyTorch 1.0.1. Other packages can be installed by:
+```bash
+pip install -r requirements.txt
+```
+
 ## Generate random DAG
 
 ```bash
@@ -23,11 +30,23 @@ All outputs from commands shown above will produce txt file like:
 (lines, each line representing edges)
 ```
 
-## Test the model
+## Train RandWireNN
 
-```
-python test.py
-```
+1. Download ImageNet dataset. Train/val folder should contain list of 1,000 directories, each containing list of images for corresponding category.
+1. Edit `config.yaml`
+  ```bash
+  cd config
+  cp default.yaml config.yaml
+  vim config.yaml # specify data directory, graph txt files
+  ```
+1. Train
+  ```
+  python trainer.py -c [config yaml] -m [name]
+  ```
+1. View tensorboardX
+  ```
+  tensorboard --logdir ./logs
+  ```
 
 ## TODO
 
@@ -36,7 +55,7 @@ New things will be added here.
 - [x] implement ER, BA, WS graph generation
 - [x] implement the model
 - [x] write training/logging code with TensorboardX
-- [ ] download ImageNet dataset and implement `dataloader.py`
+- [x] download ImageNet dataset and implement `dataloader.py`
 - [ ] train the network
 - [ ] estimate appropriate batch size for specific GPU
 - [ ] write results here

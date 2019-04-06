@@ -7,6 +7,7 @@ import argparse
 from utils.train import train
 from utils.hparams import HParam
 from utils.writer import MyWriter
+from utils.graph_reader import read_graph
 from dataset.dataloader import create_dataloader
 
 
@@ -48,12 +49,22 @@ if __name__ == '__main__':
     )
     logger = logging.getLogger()
     
-    if hp.data.train.dir == '' or hp.data.test.dir == '':
-        logger.error("train_dir, test_dir cannot be empty")
+    if hp.data.train == '' or hp.data.val == '':
+        logger.error("hp.data.train, hp.data.val cannot be empty")
         raise Exception("Please specify directories of train data.")
+
+    if hp.model.graph0 == '' or hp.model.graph1 == '' or hp.model.graph2 == '':
+        logger.error("hp.model.graph0, graph1, graph2 cannot be empty")
+        raise Exception("Please specify random DAG architecture.")
+
+    graphs = [
+        read_graph(hp.model.graph0),
+        read_graph(hp.model.graph1),
+        read_graph(hp.model.graph2),
+    ]
 
     writer = MyWriter(log_dir)
     
     trainset = create_dataloader(hp, args, True)
     valset = create_dataloader(hp, args, False)
-    train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str)
+    train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, graphs)

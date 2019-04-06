@@ -1,14 +1,23 @@
+data:
+  train: ''
+  val: ''
+  batch_size: 64
+  num_workers: 32
+---
 train:
   optimizer: 'adam'
   adam: 0.001
   adabound:
     initial: 0.001
     final: 0.05
+  summary_interval: 1
+  checkpoint_interval: 1000
+  evaluation_interval: 1000
 ---
 model:
   channel: 78 # 'small regime'
   classes: 1000
-  graph0: ''
+  graph0: '' # example: 'ws-4-075-3.txt'
   graph1: ''
   graph2: ''
 ---

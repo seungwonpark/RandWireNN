@@ -10,4 +10,4 @@ class MyWriter(SummaryWriter):
 
     def log_evaluation(self, test_loss, accuracy, step):
         self.add_scalar('loss/test_loss', test_loss, step)
-        self.add_scalar('eval/accuracy', accuracy, step)
+        self.add_scalar('eval/Top1_accuracy', accuracy, step)
