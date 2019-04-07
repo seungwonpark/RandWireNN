@@ -68,6 +68,7 @@ New things will be added here.
 - [ ] train the network
 - [x] estimate appropriate batch size for specific GPU
 - [ ] write results here
+- [ ] apply learning rate decay strategy
 
 ## Author
 
@@ -76,7 +77,3 @@ Seungwon Park / [@seungwonpark](http://swpark.me)
 ## License
 
 Apache License 2.0
-
-This repository contains codes adapted/copied from the followings:
-- [utils/adabound.py](./utils/adabound.py) from https://github.com/Luolc/AdaBound (Apache License 2.0)
-- [utils/hparams.py](./utils/hparams.py) from https://github.com/HarryVolek/PyTorch_Speaker_Verification (No License specified)

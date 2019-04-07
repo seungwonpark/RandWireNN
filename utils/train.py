@@ -3,9 +3,9 @@ import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import adabound
 import traceback
 
-from utils.adabound import AdaBound
 from utils.hparams import load_hparam_str
 from utils.evaluation import validate
 from model.model import RandWire
@@ -21,7 +21,7 @@ def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, gra
         optimizer = torch.optim.Adam(model.parameters(),
                                      lr=hp.train.adam)
     elif hp.train.optimizer == 'adabound':
-        optimizer = AdaBound(model.parameters(),
+        optimizer = adabound.AdaBound(model.parameters(),
                              lr=hp.train.adabound.initial,
                              final_lr=hp.train.adabound.final)
     else:
