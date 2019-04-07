@@ -1,18 +1,21 @@
 import os
 import tqdm
 import torch
+import torch.nn as nn
+import torch.nn.functional as F
 import argparse
 import torchvision.transforms as transforms
 from torchvision import datasets
 
 from model.model import RandWire
 from utils.hparams import HParam
+from utils.graph_reader import read_graph
 
 
 def validate(model, valset):
-	model.eval()
-	test_loss = 0
-	correct = 0
+    model.eval()
+    test_loss = 0
+    correct = 0
     with torch.no_grad():
         for idx, (data, target) in tqdm.tqdm(enumerate(valset)):
             data, target = data.cuda(), target.cuda()
@@ -36,7 +39,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     hp = HParam(args.config)
-	graphs = [
+    graphs = [
         read_graph(hp.model.graph0),
         read_graph(hp.model.graph1),
         read_graph(hp.model.graph2),
@@ -50,15 +53,15 @@ if __name__ == '__main__':
     normalize = transforms.Normalize(
         mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     valset = torch.utils.data.DataLoader(
-	            datasets.ImageFolder(hp.data.val, transforms.Compose([
-	                transforms.Resize(256),
-	                transforms.CenterCrop(224),
-	                transforms.ToTensor(),
-	                normalize,
-	            ])),
-	            batch_size=hp.data.batch_size,
-	            num_workers=hp.data.num_workers,
-	            shuffle=False, pin_memory=True)
+                datasets.ImageFolder(hp.data.val, transforms.Compose([
+                    transforms.Resize(256),
+                    transforms.CenterCrop(224),
+                    transforms.ToTensor(),
+                    normalize,
+                ])),
+                batch_size=hp.data.batch_size,
+                num_workers=hp.data.num_workers,
+                shuffle=False, pin_memory=True)
 
     print('Validating...')
     test_avg_loss, accuracy = validate(model, valset)
