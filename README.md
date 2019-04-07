@@ -2,11 +2,11 @@
 Unofficial PyTorch Implementation of:
 [Exploring Randomly Wired Neural Networks for Image Recognition](https://arxiv.org/abs/1904.01569).
 
-(WORK IN PROGRESS, currently experimenting various training strategies)
-
 ![](./assets/teaser.png)
 
-## Result (WIP)
+## Results
+
+**Currently, training is in progress.**
 
 Validation result on Imagenet(ILSVRC2012) dataset:
 
