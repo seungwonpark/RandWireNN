@@ -6,16 +6,16 @@ Unofficial PyTorch Implementation of:
 
 ![](./assets/teaser.png)
 
-## Result
+## Result (WIP)
 
 Validation result on Imagenet(ILSVRC2012) dataset:
 
-| Top 1 accuracy (%)         | Paper | Here |
-| -------------------------- | ----- | ---- |
-| RandWire-WS(4, 0.75), C=78 | 74.7  |  |
+| Top 1 accuracy (%)         | Paper | Here(WIP) |
+| -------------------------- | ----- | --------- |
+| RandWire-WS(4, 0.75), C=78 | 74.7  | 50.6      |
 
 
-- Training took about (TODO) hours on AWS p3.2xlarge(NVIDIA V100).
+- Training took about 8 hours on AWS p3.2xlarge(NVIDIA V100). 60k steps were done in total.
 - I used:
   - Adam optimizer, instead of [Distributed SGD](https://arxiv.org/abs/1706.02677).
   - `batch_size = 128`
