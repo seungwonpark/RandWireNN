@@ -2,7 +2,7 @@
 Unofficial PyTorch Implementation of:
 [Exploring Randomly Wired Neural Networks for Image Recognition](https://arxiv.org/abs/1904.01569).
 
-(WORK IN PROGRESS, currently experimenting various training strategy)
+(WORK IN PROGRESS, currently experimenting various training strategies)
 
 ![](./assets/teaser.png)
 
@@ -16,6 +16,7 @@ Validation result on Imagenet(ILSVRC2012) dataset:
 
 
 - (2019.04.07) 50.6%: Training took about 8 hours on AWS p3.2xlarge(NVIDIA V100). 60k steps were done in total, and `lr=0.001` was used with no learning rate decay.
+![](./assets/50dot6percent.png)
 - I used:
   - Adam optimizer, instead of [Distributed SGD](https://arxiv.org/abs/1706.02677).
   - `batch_size = 128`
