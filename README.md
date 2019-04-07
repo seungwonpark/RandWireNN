@@ -20,6 +20,7 @@ Validation result on Imagenet(ILSVRC2012) dataset:
 - I plan to try:
   - Learning rate decay for every 150k step, by 0.1
   - [AdaBound optimizer](https://github.com/Luolc/AdaBound)
+  - Honestly, I'm not planning to try [Distributed SGD](https://arxiv.org/abs/1706.02677), which was used in paper.
   - Any Pull Request reporting result with other training strategy will be welcome. Please let me know in prior if you're planning to do so.
 
 ## Dependencies
