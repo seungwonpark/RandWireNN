@@ -13,9 +13,6 @@ from model.model import RandWire
 
 def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, graphs):
     model = RandWire(hp, graphs).cuda()
-    logger.info("Writing graph to tensorboardX...")
-    writer.write_graph(model, torch.randn(7, 3, 224, 224).cuda())
-    logger.info("Finished.")
 
     if hp.train.optimizer == 'adam':
         optimizer = torch.optim.Adam(model.parameters(),
@@ -42,6 +39,9 @@ def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, gra
         # hp = load_hparam_str(hp_str)
     else:
         logger.info("Starting new training run")
+        logger.info("Writing graph to tensorboardX...")
+        writer.write_graph(model, torch.randn(7, 3, 224, 224).cuda())
+        logger.info("Finished.")
 
     try:
         model.train()
@@ -78,6 +78,12 @@ def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, gra
                     test_loss, accuracy = validate(model, valset, writer, step)
                     logger.info("Evaluation saved at step %d | test_loss: %.5f | accuracy: %.4f"
                                     % (step, test_loss, accuracy))
+
+                if step % hp.train.decay.step == 0:
+                    temp = optimizer.state_dict()
+                    temp['param_groups'][0]['lr'] *= hp.train.decay.gamma
+                    optimizer.load_state_dict(temp)
+
     except Exception as e:
         logger.info("Exiting due to exception: %s" % e)
         traceback.print_exc()
