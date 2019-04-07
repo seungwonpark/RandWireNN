@@ -2,7 +2,7 @@
 Unofficial PyTorch Implementation of:
 [Exploring Randomly Wired Neural Networks for Image Recognition](https://arxiv.org/abs/1904.01569).
 
-(WORK IN PROGRESS, currently preparing ImageNet dataset)
+(WORK IN PROGRESS, currently experimenting various training strategy)
 
 ![](./assets/teaser.png)
 
@@ -15,13 +15,14 @@ Validation result on Imagenet(ILSVRC2012) dataset:
 | RandWire-WS(4, 0.75), C=78 | 74.7  | 50.6      |
 
 
-- Training took about 8 hours on AWS p3.2xlarge(NVIDIA V100). 60k steps were done in total.
+- (2019.04.07) 50.6%: Training took about 8 hours on AWS p3.2xlarge(NVIDIA V100). 60k steps were done in total, and `lr=0.001` was used with no learning rate decay.
 - I used:
   - Adam optimizer, instead of [Distributed SGD](https://arxiv.org/abs/1706.02677).
   - `batch_size = 128`
 - I plan to try:
   - Learning rate decay on plateau
   - [AdaBound optimizer](https://github.com/Luolc/AdaBound)
+  - Any Pull Request reporting result with other training strategy will be welcome. Please let me know in prior if you're planning to do so.
 
 ## Dependencies
 
