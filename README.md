@@ -8,12 +8,20 @@ Unofficial PyTorch Implementation of:
 
 ## Result
 
+Validation result on Imagenet(ILSVRC2012) dataset:
+
+| Top 1 accuracy (%)         | Paper | Here |
+| -------------------------- | ----- | ---- |
+| RandWire-WS(4, 0.75), C=78 | 74.7  |  |
+
+
 - Training took about (TODO) hours on AWS p3.2xlarge(NVIDIA V100).
 - I used:
   - Adam optimizer, instead of [Distributed SGD](https://arxiv.org/abs/1706.02677).
   - `batch_size = 128`
-
-(TODO: add results)
+- I plan to try:
+  - Learning rate decay on plateau
+  - [AdaBound optimizer](https://github.com/Luolc/AdaBound)
 
 ## Dependencies
 
@@ -49,6 +57,7 @@ All outputs from commands shown above will produce txt file like:
   vim config.yaml # specify data directory, graph txt files
   ```
 1. Train
+  Note: Validation performed here won't use entire test set, since it will consume much time. (about 3 min.)
   ```
   python trainer.py -c [config yaml] -m [name]
   ```
@@ -57,18 +66,16 @@ All outputs from commands shown above will produce txt file like:
   tensorboard --logdir ./logs
   ```
 
-## TODO
+## Validation
 
-New things will be added here.
+Run full validation:
 
-- [x] implement ER, BA, WS graph generation
-- [x] implement the model
-- [x] write training/logging code with TensorboardX
-- [x] download ImageNet dataset and implement `dataloader.py`
-- [ ] train the network
-- [x] estimate appropriate batch size for specific GPU
-- [ ] write results here
-- [ ] apply learning rate decay strategy
+```bash
+python validation.py -c [config path] -p [checkpoint path]
+```
+
+This will show accuracy and average test loss of the trained model.
+
 
 ## Author
 
