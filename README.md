@@ -1,4 +1,7 @@
 # RandWireNN
+
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/exploring-randomly-wired-neural-networks-for/image-classification-imagenet-image-reco)](https://paperswithcode.com/sota/image-classification-imagenet-image-reco?p=exploring-randomly-wired-neural-networks-for)
+
 Unofficial PyTorch Implementation of:
 [Exploring Randomly Wired Neural Networks for Image Recognition](https://arxiv.org/abs/1904.01569).
 
