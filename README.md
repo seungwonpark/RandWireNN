@@ -15,15 +15,17 @@ Validation result on Imagenet(ILSVRC2012) dataset:
 
 | Top 1 accuracy (%)         | Paper | Here(WIP) |
 | -------------------------- | ----- | --------- |
-| RandWire-WS(4, 0.75), C=78 | 74.7  | 56.8      |
+| RandWire-WS(4, 0.75), C=78 | 74.7  | 63.0      |
 
 
+- (Currently trying Adabound optimizer)
+- (2019.04.10) 63.0%: 450k steps with Adam optimizer, initial lr 0.001, lr decay about 0.1 for every 150k step
 - (2019.04.07) 56.8%: Training took about 16 hours on AWS p3.2xlarge(NVIDIA V100). 120k steps were done in total, and Adam optimizer with `lr=0.001, batch_size=128` was used with no learning rate decay.
 ![](./assets/56dot8percent.png)
 - I plan to try:
   - Learning rate decay for every 150k step, by 0.1
   - [AdaBound optimizer](https://github.com/Luolc/AdaBound)
-  - Honestly, I'm not planning to try [Distributed SGD](https://arxiv.org/abs/1706.02677), which was used in paper.
+  - TODO: implement [Distributed SGD](https://arxiv.org/abs/1706.02677) like [JiaminRen's implementation](https://github.com/JiaminRen/RandWireNN)
   - Any Pull Request reporting result with other training strategy will be welcome. Please let me know in prior if you're planning to do so.
 
 ## Dependencies
