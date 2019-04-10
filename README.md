@@ -56,20 +56,21 @@ All outputs from commands shown above will produce txt file like:
 
 1. Download ImageNet dataset. Train/val folder should contain list of 1,000 directories, each containing list of images for corresponding category. For validation image files, this script can be useful: https://raw.githubusercontent.com/soumith/imagenetloader.torch/master/valprep.sh
 1. Edit `config.yaml`
-  ```bash
-  cd config
-  cp default.yaml config.yaml
-  vim config.yaml # specify data directory, graph txt files
-  ```
+    ```bash
+    cd config
+    cp default.yaml config.yaml
+    vim config.yaml # specify data directory, graph txt files
+    ```
 1. Train
-  Note: Validation performed here won't use entire test set, since it will consume much time. (about 3 min.)
-  ```
-  python trainer.py -c [config yaml] -m [name]
-  ```
+
+    *Note.* Validation performed here won't use entire test set, since it will consume much time. (about 3 min.)
+    ```
+    python trainer.py -c [config yaml] -m [name]
+    ```
 1. View tensorboardX
-  ```
-  tensorboard --logdir ./logs
-  ```
+    ```
+    tensorboard --logdir ./logs
+    ```
 
 ## Validation
 
