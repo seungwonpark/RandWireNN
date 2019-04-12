@@ -21,7 +21,7 @@ def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, gra
         optimizer = adabound.AdaBound(model.parameters(),
                              lr=hp.train.adabound.initial,
                              final_lr=hp.train.adabound.final)
-    elif hp.train.optimizer == 'sgd'L
+    elif hp.train.optimizer == 'sgd':
         optimizer = torch.optim.SGD(model.parameters(),
                                     lr=hp.train.sgd.lr,
                                     momentum=hp.train.sgd.momentum,
