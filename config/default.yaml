@@ -10,6 +10,10 @@ train:
   adabound:
     initial: 0.001
     final: 0.05
+  sgd:
+    lr: 0.1
+    momentum: 0.9
+    weight_decay: 0.00005
   decay:
     step: 150000
     gamma: 0.1

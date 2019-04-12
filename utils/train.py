@@ -21,6 +21,11 @@ def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, gra
         optimizer = adabound.AdaBound(model.parameters(),
                              lr=hp.train.adabound.initial,
                              final_lr=hp.train.adabound.final)
+    elif hp.train.optimizer == 'sgd'L
+        optimizer = torch.optim.SGD(model.parameters(),
+                                    lr=hp.train.sgd.lr,
+                                    momentum=hp.train.sgd.momentum,
+                                    weight_decay=hp.train.sgd.weight_decay)
     else:
         raise Exception("Optimizer not supported: %s" % hp.train.optimizer)
 
