@@ -1,8 +1,9 @@
 data:
-  train: ''
+  train: '' # if using MNIST, can download directly from cloud with train: 'download', test: 'download'
   val: ''
   batch_size: 128 # for test, batch_size//8 will be used.
   num_workers: 16
+  type: '' # MNIST, CIFAR10, ImageNet
 ---
 train:
   optimizer: 'adam'
@@ -23,7 +24,8 @@ train:
 ---
 model:
   channel: 78 # 'small regime'
-  classes: 1000
+  classes: 1000 # use 10 for MNIST, CIFAR10
+  input_maps: 1
   graph0: '' # example: 'ws-4-075-3.txt'
   graph1: ''
   graph2: ''

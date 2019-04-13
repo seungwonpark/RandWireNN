@@ -45,7 +45,7 @@ def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, gra
     else:
         logger.info("Starting new training run")
         logger.info("Writing graph to tensorboardX...")
-        writer.write_graph(model, torch.randn(7, 3, 224, 224).cuda())
+        writer.write_graph(model, torch.randn(7, hp.model.input_maps, 224, 224).cuda())
         logger.info("Finished.")
 
     try:

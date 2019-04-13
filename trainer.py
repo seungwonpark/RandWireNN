@@ -8,7 +8,7 @@ from utils.train import train
 from utils.hparams import HParam
 from utils.writer import MyWriter
 from utils.graph_reader import read_graph
-from dataset.dataloader import create_dataloader
+from dataset.dataloader import create_dataloader, MNIST_dataloader, CIFAR10_dataloader
 
 
 if __name__ == '__main__':
@@ -65,6 +65,15 @@ if __name__ == '__main__':
 
     writer = MyWriter(log_dir)
     
-    trainset = create_dataloader(hp, args, True)
-    valset = create_dataloader(hp, args, False)
+    dataset = hp.data.type
+    switcher = {
+            'MNIST': MNIST_dataloader,
+            'CIFAR10':CIFAR10_dataloader,
+            'ImageNet':create_dataloader,
+            }
+    assert dataset in switcher.keys(), 'Dataset type currently not supported'
+    dl_func = switcher[dataset]
+    trainset = dl_func(hp, args, True)
+    valset = dl_func(hp, args, False)
+
     train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, graphs)

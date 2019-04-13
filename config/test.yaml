@@ -1,3 +1,5 @@
+data:
+  type: '' # MNIST, CIFAR10, ImageNet
 train:
   optimizer: 'adam'
   adam: 0.001
@@ -7,7 +9,7 @@ train:
 ---
 model:
   channel: 78 # 'small regime'
-  classes: 1000
+  classes: 1000 # use 10 for MNIST, CIFAR10
   graph0: 'ws-4-075-3.txt'
   graph1: 'ws-4-075-4.txt'
   graph2: 'ws-4-075-5.txt'

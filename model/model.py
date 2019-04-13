@@ -12,11 +12,11 @@ class RandWire(nn.Module):
         super(RandWire, self).__init__()
         self.chn = hp.model.channel
         self.cls = hp.model.classes
-
+        self.im = hp.model.input_maps
         # didn't used nn.Sequential for debugging purpose
         # self.conv1 = SeparableConv2d(1, self.chn//2, kernel_size=3, padding=1, stride=2)
-        self.conv1 = nn.Conv2d(3, self.chn//2, kernel_size=3, padding=1, stride=2)
-        self.bn1 = nn.BatchNorm2d(self.chn//2)
+        self.conv1 = nn.Conv2d(self.im, self.chn//2, kernel_size=3, padding=1, stride=2)
+        self.bn1 = nn.BatchNorm2d(self.chn//2)       
         # self.conv2 = SeparableConv2d(self.chn//2, self.chn, kernel_size=3, padding=1, stride=2)
         self.conv2 = nn.Conv2d(self.chn//2, self.chn, kernel_size=3, padding=1, stride=2)
         self.bn2 = nn.BatchNorm2d(self.chn)
@@ -29,7 +29,7 @@ class RandWire(nn.Module):
         self.fc = nn.Linear(1280, self.cls)
 
     def forward(self, y):
-        # y: [B, 3, 224, 224]
+        # y: [B, im, 224, 224]
         # conv1
         y = self.conv1(y) # [B, chn//2, 112, 112]
         y = self.bn1(y) # [B, chn//2, 112, 112]

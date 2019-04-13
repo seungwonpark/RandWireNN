@@ -37,7 +37,7 @@ def create_dataloader(hp, args, train):
 
 # MNIST data loading
     
-def MNIST_dataloader(bs, download=True):
+def MNIST_dataloader(hp, args, train):
     '''
     :bs: int
         batch size of train and test dataloaders
@@ -49,26 +49,24 @@ def MNIST_dataloader(bs, download=True):
         os.mkdir(root)
         
     transf = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (1.0,))])
-
-    train_set = datasets.MNIST(root=root, train=True, transform=transf, download=download)
-    test_set = datasets.MNIST(root=root, train=False, transform=transf, download=download)
-    
-    batch_size = len(train_set)
-    
-    trainloader = torch.utils.data.DataLoader(
+    if train==True:
+        train_set = datasets.MNIST(root=root, train=True, transform=transf, download=hp.data.train)
+        trainloader = torch.utils.data.DataLoader(
                      dataset=train_set,
-                     batch_size=bs,
+                     batch_size=hp.data.batch_size,
                      shuffle=True)
-    testloader = torch.utils.data.DataLoader(
-                    dataset=test_set,
-                    batch_size=bs,
-                    shuffle=False)
-    
-    return trainloader, testloader
+        return trainloader
+    else:
+        test_set = datasets.MNIST(root=root, train=False, transform=transf, download=True)    
+        testloader = torch.utils.data.DataLoader(
+                dataset=test_set,
+                batch_size=129,
+                shuffle=False)
+        return testloader
 
 # CIFAR10 data loading 
 
-def CIFAR10_dataloader(path, bs):
+def CIFAR10_dataloader(hp, args, train, path='.'):
     '''
     :path: str
         path to raw CIFAR10, as found in https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
@@ -115,10 +113,11 @@ def CIFAR10_dataloader(path, bs):
     train = torch.utils.data.TensorDataset(torch.Tensor(ds), torch.LongTensor(dlabels))
     test = torch.utils.data.TensorDataset(torch.Tensor(test_ds), torch.LongTensor(test_dlabels))
 
-    trainloader = torch.utils.data.DataLoader(train, batch_size = bs)
-    testloader = torch.utils.data.DataLoader(test, batch_size = bs)
+    trainloader = torch.utils.data.DataLoader(train, batch_size = hp.data.batch_size)
+    testloader = torch.utils.data.DataLoader(test, batch_size = hp.data.batch_size)
     
-    return trainloader, testloader
+    if train==True: return trainloader
+    else: return testloader
 
 def unpickle(file):
     import pickle

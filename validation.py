@@ -10,6 +10,7 @@ from torchvision import datasets
 from model.model import RandWire
 from utils.hparams import HParam
 from utils.graph_reader import read_graph
+from dataset.dataloader import create_dataloader, MNIST_dataloader, CIFAR10_dataloader
 
 
 def validate(model, valset):
@@ -50,18 +51,15 @@ if __name__ == '__main__':
     model.load_state_dict(checkpoint['model'])
     step = checkpoint['step']
 
-    normalize = transforms.Normalize(
-        mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-    valset = torch.utils.data.DataLoader(
-                datasets.ImageFolder(hp.data.val, transforms.Compose([
-                    transforms.Resize(256),
-                    transforms.CenterCrop(224),
-                    transforms.ToTensor(),
-                    normalize,
-                ])),
-                batch_size=hp.data.batch_size,
-                num_workers=hp.data.num_workers,
-                shuffle=False, pin_memory=True)
+    dataset = hp.data.type
+    switcher = {
+            'MNIST': MNIST_dataloader,
+            'CIFAR10':CIFAR10_dataloader,
+            'ImageNet':create_dataloader,
+            }
+    assert dataset in switcher.keys(), 'Dataset type currently not supported'
+    dl_func = switcher[dataset]
+    valset = dl_func(hp, args, False)
 
     print('Validating...')
     test_avg_loss, accuracy = validate(model, valset)
