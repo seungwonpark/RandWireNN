@@ -21,7 +21,10 @@ Validation result on Imagenet(ILSVRC2012) dataset:
 - [JiaminRen's implementation](https://github.com/JiaminRen/RandWireNN) reached accuarcy which is almost close to paper, using identical training strategy with paper.
 - (2019.04.10) 63.0%: 450k steps with Adam optimizer, initial lr 0.001, lr decay about 0.1 for every 150k step
 - (2019.04.07) 56.8%: Training took about 16 hours on AWS p3.2xlarge(NVIDIA V100). 120k steps were done in total, and Adam optimizer with `lr=0.001, batch_size=128` was used with no learning rate decay.
-![](./assets/56dot8percent.png)
+  ![](./assets/train-overall.png)
+- Orange: Adam
+- Blue: AdaBound
+- Red: SGD
 
 ## Dependencies
 
