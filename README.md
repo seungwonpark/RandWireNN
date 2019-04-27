@@ -1,5 +1,7 @@
 # RandWireNN
 
+Caveat: *Currently, this repo have critical issue on random-graph generation. (See [#8](https://github.com/seungwonpark/RandWireNN/issues/8)) This will be fixed, and experimented again. Since then, use [JiaminRen's implementation](https://github.com/JiaminRen/RandWireNN).*
+
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/exploring-randomly-wired-neural-networks-for/image-classification-imagenet-image-reco)](https://paperswithcode.com/sota/image-classification-imagenet-image-reco?p=exploring-randomly-wired-neural-networks-for)
 
 Unofficial PyTorch Implementation of:
