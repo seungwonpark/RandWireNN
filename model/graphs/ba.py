@@ -3,8 +3,6 @@ import math
 import argparse
 import numpy as np
 
-from shuffle import shuffle
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('Barabasi-Albert graph generator')
@@ -37,7 +35,7 @@ if __name__ == '__main__':
             deg[cnt] += 1
             deg[i] += 1
 
-    edges = shuffle(n, edges)
+    edges.sort()
 
     os.makedirs('generated', exist_ok=True)
     with open(os.path.join('generated', args.out_txt), 'w') as f:

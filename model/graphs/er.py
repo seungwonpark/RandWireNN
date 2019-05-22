@@ -3,8 +3,14 @@ import math
 import argparse
 import numpy as np
 
-from shuffle import shuffle
 
+def shuffle(n, edges):
+    mapping = np.random.permutation(range(n))
+    shuffled = list()
+    for edge in edges:
+        s, e = edge
+        shuffled.append(sorted((mapping[s], mapping[e])))
+    return sorted(shuffled)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('Erdos-Renyi graph generator')

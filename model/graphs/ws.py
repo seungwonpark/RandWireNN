@@ -3,8 +3,6 @@ import math
 import argparse
 import numpy as np
 
-from shuffle import shuffle
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('Erdos-Renyi graph generator')
@@ -50,7 +48,7 @@ if __name__ == '__main__':
             if adj[i][j]:
                 edges.append((i, j))
 
-    edges = shuffle(n, edges)
+    edges.sort()
 
     os.makedirs('generated', exist_ok=True)
     with open(os.path.join('generated', args.out_txt), 'w') as f:
