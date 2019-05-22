@@ -25,7 +25,7 @@ train:
 model:
   channel: 78 # 'small regime'
   classes: 1000 # use 10 for MNIST, CIFAR10
-  input_maps: 1
+  input_maps: 3 # 3 for ImageNet/CIFAR10, 1 for MNIST
   graph0: '' # example: 'ws-4-075-3.txt'
   graph1: ''
   graph2: ''
