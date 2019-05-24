@@ -31,9 +31,9 @@ def create_dataloader(hp, args, train):
                     transforms.ToTensor(),
                     normalize,
                 ])),
-                batch_size=hp.data.batch_size//8,
+                batch_size=hp.data.batch_size,
                 num_workers=hp.data.num_workers,
-                shuffle=False, pin_memory=True)
+                shuffle=False, pin_memory=True, drop_last=False)
 
 # MNIST data loading
     

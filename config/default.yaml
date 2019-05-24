@@ -1,12 +1,13 @@
 data:
   train: '' # if using MNIST, can download directly from cloud with train: 'download', test: 'download'
   val: ''
-  batch_size: 128 # for test, batch_size//8 will be used.
+  batch_size: 256 # learning rate should be adjusted along with batch_size. see 1706.02677
   num_workers: 16
   type: '' # MNIST, CIFAR10, ImageNet
 ---
 train:
   optimizer: 'adam'
+  epoch: 250 # 'small regime'. see table 2 of the paper.
   adam: 0.001
   adabound:
     initial: 0.001
@@ -18,9 +19,6 @@ train:
   decay:
     step: 150000
     gamma: 0.1
-  summary_interval: 1
-  checkpoint_interval: 1000
-  evaluation_interval: 1000
 ---
 model:
   channel: 78 # 'small regime'

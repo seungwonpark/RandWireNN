@@ -10,25 +10,8 @@ from torchvision import datasets
 from model.model import RandWire
 from utils.hparams import HParam
 from utils.graph_reader import read_graph
+from utils.evaluation import validate
 from dataset.dataloader import create_dataloader, MNIST_dataloader, CIFAR10_dataloader
-
-
-def validate(model, valset):
-    model.eval()
-    test_loss = 0
-    correct = 0
-    with torch.no_grad():
-        for idx, (data, target) in tqdm.tqdm(enumerate(valset)):
-            data, target = data.cuda(), target.cuda()
-            output = model(data)
-            test_loss += F.nll_loss(output, target).item()
-            pred = output.argmax(dim=1, keepdim=True)
-            correct += pred.eq(target.view_as(pred)).sum().item()
-
-    test_loss /= len(valset.dataset)
-    accuracy = correct / len(valset.dataset)
-
-    return test_loss, accuracy
 
 
 if __name__ == '__main__':

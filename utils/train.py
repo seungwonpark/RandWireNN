@@ -1,9 +1,11 @@
 import os
 import math
+import tqdm
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import adabound
+import itertools
 import traceback
 
 from utils.hparams import load_hparam_str
@@ -29,6 +31,10 @@ def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, gra
     else:
         raise Exception("Optimizer not supported: %s" % hp.train.optimizer)
 
+    lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+        optimizer, hp.train.epoch)
+
+    init_epoch = -1
     step = 0
 
     if chkpt_path is not None:
@@ -36,7 +42,9 @@ def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, gra
         checkpoint = torch.load(chkpt_path)
         model.load_state_dict(checkpoint['model'])
         optimizer.load_state_dict(checkpoint['optimizer'])
+        lr_scheduler.load_state_dict(checkpoint['lr_scheduler'])
         step = checkpoint['step']
+        init_epoch = checkpoint['epoch']
 
         if hp_str != checkpoint['hp_str']:
             logger.warning("New hparams are different from checkpoint.")
@@ -50,8 +58,9 @@ def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, gra
 
     try:
         model.train()
-        while True:
-            for data, target in trainset:
+        for epoch in itertools.count(init_epoch+1):
+            loader = tqdm.tqdm(trainset, desc='Train data loader')
+            for data, target in loader:
                 data, target = data.cuda(), target.cuda()
                 optimizer.zero_grad()
                 output = model(data)
@@ -59,35 +68,28 @@ def train(out_dir, chkpt_path, trainset, valset, writer, logger, hp, hp_str, gra
                 loss.backward()
                 optimizer.step()
                 
-                step += 1
                 loss = loss.item()
                 if loss > 1e8 or math.isnan(loss):
                     logger.error("Loss exploded to %.02f at step %d!" % (loss, step))
                     raise Exception("Loss exploded")
 
-                if step % hp.train.summary_interval == 0:
-                    writer.log_training(loss, step)
-                    logger.info("Wrote summary at step %d" % step)
+                writer.log_training(loss, step)
+                loader.set_description('Loss %.02f at step %d' % (loss, step))
+                step += 1                
 
-                if step % hp.train.checkpoint_interval == 0:
-                    save_path = os.path.join(out_dir, 'chkpt_%07d.pt' % step)
-                    torch.save({
-                        'model': model.state_dict(),
-                        'optimizer': optimizer.state_dict(),
-                        'step': step,
-                        'hp_str': hp_str,
-                    }, save_path)
-                    logger.info("Saved checkpoint to: %s" % save_path)
+            save_path = os.path.join(out_dir, 'chkpt_%03d.pt' % epoch)
+            torch.save({
+                'model': model.state_dict(),
+                'optimizer': optimizer.state_dict(),
+                'lr_scheduler': lr_scheduler.state_dict(),
+                'step': step,
+                'epoch': epoch,
+                'hp_str': hp_str,
+            }, save_path)
+            logger.info("Saved checkpoint to: %s" % save_path)
 
-                if step % hp.train.evaluation_interval == 0:
-                    test_loss, accuracy = validate(model, valset, writer, step)
-                    logger.info("Evaluation saved at step %d | test_loss: %.5f | accuracy: %.4f"
-                                    % (step, test_loss, accuracy))
-
-                if step % hp.train.decay.step == 0:
-                    temp = optimizer.state_dict()
-                    temp['param_groups'][0]['lr'] *= hp.train.decay.gamma
-                    optimizer.load_state_dict(temp)
+            validate(model, valset, writer, epoch)
+            lr_scheduler.step()
 
     except Exception as e:
         logger.info("Exiting due to exception: %s" % e)
