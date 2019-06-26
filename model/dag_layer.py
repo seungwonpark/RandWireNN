@@ -35,8 +35,8 @@ class DAGLayer(nn.Module):
 
         self.nodes = nn.ModuleList([
             NodeOp(in_degree=max(1, self.in_degree[x]),
-                   in_channel=in_channel,
-                   out_channel=out_channel if x in self.output_nodes else in_channel,
+                   in_channel=in_channel if x in self.input_nodes else out_channel,
+                   out_channel=out_channel,
                    stride=2 if x in self.input_nodes else 1)
             for x in range(num_nodes)])
 

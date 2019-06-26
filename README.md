@@ -7,26 +7,22 @@ Unofficial PyTorch Implementation of:
 
 ![](./assets/teaser.png)
 
-## Results (To be fixed)
-
-Caveat: These are the results evaluated before fixing issue on random-graph generation. (See [#8](https://github.com/seungwonpark/RandWireNN/issues/8)) This will be updated.
+## Results
 
 Validation result on Imagenet(ILSVRC2012) dataset:
 
-| Top 1 accuracy (%)         | Paper | Here      |
-| -------------------------- | ----- | --------- |
-| RandWire-WS(4, 0.75), C=78 | 74.7  | 63.0      |
+| Top 1 accuracy (%)         | Paper | Here |
+| -------------------------- | ----- | ---- |
+| RandWire-WS(4, 0.75), C=78 | 74.7  | 69.2 |
 
 
+- (2019.06.26) 69.2%: 250 epoch with SGD optimizer, lr 0.1, momentum 0.9, weight decay 5e-5, cosine annealing lr schedule (no label smoothing applied, see loss curve below)
 - (2019.04.14) 62.6%: 396k steps with SGD optimizer, lr 0.1, momentum 0.9, weigth decay 5e-5, lr decay about 0.1 at 300k
 - (2019.04.12) 62.6%: 416k steps with Adabound optimizer, initial lr 0.001(decayed about 0.1 at 300k), final lr 0.1, no weight decay 
-- [JiaminRen's implementation](https://github.com/JiaminRen/RandWireNN) reached accuarcy which is almost close to paper, using identical training strategy with paper.
+- (2019.04) [JiaminRen's implementation](https://github.com/JiaminRen/RandWireNN) reached accuarcy which is almost close to paper, using identical training strategy with paper.
 - (2019.04.10) 63.0%: 450k steps with Adam optimizer, initial lr 0.001, lr decay about 0.1 for every 150k step
 - (2019.04.07) 56.8%: Training took about 16 hours on AWS p3.2xlarge(NVIDIA V100). 120k steps were done in total, and Adam optimizer with `lr=0.001, batch_size=128` was used with no learning rate decay.
-  ![](./assets/train-overall.png)
-- Orange: Adam
-- Blue: AdaBound
-- Red: SGD
+  ![](./assets/fix11.png)
 
 ## Dependencies
 
